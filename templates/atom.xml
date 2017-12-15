@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>{{author.name}}</title>
+  <link href="{{baseUrl}}/atom.xml" rel="self"/>
+  <link href="{{baseUrl}}"/>
+  <updated>{{date}}</updated>
+  <id>{{baseUrl}}</id>
+  <author>
+    <name>{{author.name}}</name>
+  </author>
+  {{#collections.articles}}
+    <entry>
+      <title>{{properties.title}}</title>
+      <link href="{{baseUrl}}/{{slug}}"/>
+      <id>{{baseUrl}}/{{slug}}</id>
+      <updated>{{#updated_at}}{{updated_at}}{{/updated_at}}{{^updated_at}}{{published_at}}{{/updated_at}}</updated>
+      <author>
+        <name>{{author.name}}</name>
+      </author>
+      <summary>{{excerpt}}</summary>
+      <content type="html">{{properties.body}}</content>
+    </entry>
+  {{/collections.articles}}
+</feed>

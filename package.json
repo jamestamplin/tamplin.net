@@ -1,0 +1,39 @@
+{
+  "private": true,
+  "scripts": {
+    "postinstall": "make build",
+    "start": "make start"
+  },
+  "engines": {
+    "node": "6.3.0",
+    "npm": "3.10.3"
+  },
+  "dependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.8.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "browser-sync": "^2.18.8",
+    "date-season": "0.0.2",
+    "gravatar": "^1.5.2",
+    "isomorphic-fetch": "^2.2.1",
+    "makefile-help": "0.0.2",
+    "metalsmith": "^2.3.0",
+    "metalsmith-better-excerpts": "^0.1.7",
+    "metalsmith-collections": "^0.9.0",
+    "metalsmith-layouts": "^1.8.0",
+    "metalsmith-metaobject": "^0.1.0",
+    "metalsmith-permalinks": "^0.5.0",
+    "metalsmith-rewrite": "^0.1.2",
+    "metalsmith-static": "0.0.5",
+    "moment": "^2.13.0",
+    "mustache": "^2.2.1",
+    "path-to-regexp": "^1.7.0",
+    "query-string": "^4.3.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-polyfill": "^6.26.0"
+  }
+}

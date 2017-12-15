@@ -1,0 +1,277 @@
+#!/usr/bin/env node
+
+/**
+ * Polyfills.
+ */
+
+import 'babel-core/register'
+/** import 'babel-polyfill' */
+import 'source-map-support/register'
+
+/**
+ * Dependencies.
+ */
+
+import Metalsmith from 'metalsmith'
+import Season from 'date-season'
+import collections from 'metalsmith-collections'
+import excerpts from 'metalsmith-better-excerpts'
+import gravatar from 'gravatar'
+import layouts from 'metalsmith-layouts'
+import metadata from 'metalsmith-metaobject'
+import moment from 'moment'
+import path from 'path'
+import permalinks from 'metalsmith-permalinks'
+import rewrite from 'metalsmith-rewrite'
+import serve from 'metalsmith-static'
+
+import contents from '../modules/metalsmith-contents'
+
+/**
+ * Environment variables.
+ *
+ * @type {String}
+ */
+
+const {
+  AUTHOR_BIO,
+  AUTHOR_DESCRIPTION,
+  AUTHOR_EMAIL,
+  AUTHOR_NAME,
+  AUTHOR_TWITTER,
+  BASE_URL,
+  CONTENTS_COLLECTION,
+  CONTENTS_TEAM,
+  SEGMENT_WRITE_KEY,
+} = process.env
+
+/**
+ * Create a helper to get the season name from a date.
+ *
+ * @type {Function}
+ */
+
+const toSeason = Season({ north: true })
+
+/**
+ * Plugins.
+ *
+ * @type {Array}
+ */
+
+const plugins = [
+
+  metadata({
+    baseUrl: BASE_URL,
+    date: new Date().toISOString(),
+    segment: SEGMENT_WRITE_KEY,
+    author: {
+      bio: AUTHOR_BIO,
+      description: AUTHOR_DESCRIPTION,
+      email: AUTHOR_EMAIL,
+      gravatar: gravatar.url(AUTHOR_EMAIL, { size: '200' }),
+      name: AUTHOR_NAME,
+      twitter: AUTHOR_TWITTER,
+    }
+  }),
+
+  contents({
+    team: 'ianstormtaylor',
+    collection: 'articles',
+    buildPath: (item, collection) => `${item.slug}.html`
+  }),
+
+  title(),
+
+  date(),
+
+  excerpts({
+    pruneLength: 75 * 3,
+  }),
+
+  collections({
+    articles: {
+      pattern: '*',
+      reverse: true,
+      sortBy: (a, b) => {
+        a = new Date(a.published_at)
+        b = new Date(b.published_at)
+        if (a > b) return 1
+        if (a < b) return -1
+        return 0
+      }
+    }
+  }),
+
+  seasons(),
+
+  layouts({
+    pattern: '*',
+    directory: 'templates',
+    default: 'article.html',
+    engine: 'mustache',
+  }),
+
+  permalinks({
+    pattern: ':slug',
+  }),
+
+  add({
+    name: '404.html',
+    contents: '',
+    layout: '404.html',
+  }),
+
+  add({
+    name: 'atom.xml',
+    contents: '',
+    layout: 'atom.xml',
+  }),
+
+  add({
+    name: 'index.html',
+    contents: '',
+    layout: 'index.html',
+  }),
+
+  layouts({
+    pattern: '*',
+    directory: 'templates',
+    engine: 'mustache',
+  }),
+
+  serve({
+    src: 'public',
+    dest: '.',
+  }),
+
+]
+
+/**
+ * Metalsmith.
+ *
+ * @type {Metalsmith}
+ */
+
+console.log('Building site...')
+
+const dir = path.resolve(__dirname, '..')
+const build = path.resolve(dir, 'build')
+const metalsmith = new Metalsmith(dir)
+  .source(build)
+  .destination(build)
+  .use(plugins)
+  .build((error) => {
+    if (error) {
+      console.error('Encountered error while building site:', error)
+      throw error
+    }
+
+    console.log('Built!')
+  })
+
+/**
+ * Metalsmith plugin to add a `file`.
+ *
+ * @param {Object} file
+ *   @property {String} name
+ *   @property {Mixed} ...
+ * @return {Function}
+ */
+
+function add(file) {
+  return (files, metalsmith, done) => {
+    files[file.name] = file
+    files[file.name].contents = file.contents instanceof Buffer
+      ? file.contents
+      : Buffer.from(file.contents)
+
+    done()
+  }
+}
+
+/**
+ * Add a formatted date to each article.
+ *
+ * @return {Function}
+ */
+
+function date() {
+  return (files, metalsmith, done) => {
+    for (const key in files) {
+      const file = files[key]
+      const publishedAt = moment(file.published_at)
+      const date = publishedAt.format('MMMM D, YYYY')
+      file.date = date
+    }
+
+    done()
+  }
+}
+
+/**
+ * Add a formatted title to each article, replacing the last space character
+ * with a non-breaking space to prevent widows, if there are any spaces.
+ *
+ * @return {Function}
+ */
+
+function title() {
+  return (files, metalsmith, done) => {
+    for (const key in files) {
+      const file = files[key]
+      const { title } = file.properties
+      const index = title.lastIndexOf(' ')
+      file.title = ~index
+        ? title.substr(0, index) + '&nbsp;' + title.substr(index + 1)
+        : title
+    }
+
+    done()
+  }
+}
+
+/**
+ * Group articles into seasons.
+ *
+ * @return {Function}
+ */
+
+function seasons() {
+  return (files, metalsmith, done) => {
+    const metadata = metalsmith.metadata()
+    const { articles } = metadata
+    const seasons = []
+    let previousName
+
+    for (const article of articles) {
+      const date = moment(article.published_at)
+      let year = parseInt(date.format('YYYY'), 10)
+      const month = date.format('MMMM')
+      const season = toSeason(article.published_at)
+
+      if (
+        (month == 'January' || month == 'February') &&
+        (season == 'Winter')
+      ) {
+        year -= 1
+      }
+
+      const name = `${season} ${year}`
+
+      if (name != previousName) {
+        seasons.push({
+          name,
+          articles: []
+        })
+      }
+
+      const last = seasons[seasons.length - 1]
+      last.articles.push(article)
+      previousName = name
+    }
+
+    metadata.seasons = seasons
+    done()
+  }
+}
