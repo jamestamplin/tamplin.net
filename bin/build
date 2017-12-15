@@ -51,7 +51,7 @@ const {
  * @type {Function}
  */
 
-const toSeason = Season({ north: true })
+const toSeason = Season({ north: true, fall: true })
 
 /**
  * Plugins.
@@ -76,8 +76,8 @@ const plugins = [
   }),
 
   contents({
-    team: 'ianstormtaylor',
-    collection: 'articles',
+    team: 'james',
+    collection: 'posts',
     buildPath: (item, collection) => `${item.slug}.html`
   }),
 
