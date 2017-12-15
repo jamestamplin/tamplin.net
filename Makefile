@@ -5,6 +5,7 @@
 
 ifndef NODE_ENV
 	include .env
+	export
 endif
 
 ifneq ($(wildcard ./node_modules),)
@@ -17,7 +18,6 @@ endif
 
 babelnode = ./node_modules/.bin/babel-node
 browsersync = ./node_modules/.bin/browser-sync
-run =
 
 #
 # Flags.
@@ -29,10 +29,6 @@ DEBUG ?= false
 #
 # Config.
 #
-
-ifeq ($(NODE_ENV),development)
-	run += env $(cat .env | xargs)
-endif
 
 ifeq ($(DEBUG),true)
 	babelnode += debug
@@ -46,7 +42,7 @@ endif
 build:
 	@ rm -rf ./build
 	@ mkdir ./build
-	@ $(run) $(babelnode) ./bin/build
+	@ $(babelnode) ./bin/build
 
 # Remove all of the generated files.
 clean:
@@ -64,7 +60,7 @@ favicon:
 
 # Run the development server.
 start:
-	@ $(run) $(browsersync) start --server 'build' --files 'build' --port $(PORT)
+	@ $(browsersync) start --server 'build' --files 'build' --port $(PORT)
 
 #
 # Phonies.
