@@ -1,8 +1,7 @@
 <!doctype html>
-<!doctype html>
 <html>
   <head>
-    <title>{{author.name}}</title>
+    <title>About {{author.name}}</title>
     <meta name="author" content="{{author.name}}">
     <meta name="description" content="{{{author.description}}}">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1">
@@ -18,9 +17,8 @@
       <div class="author">
         <img class="author-gravatar" src="{{author.gravatar}}" />
         <h1 class="author-name">
-          <a class="author-link" href="/">{{author.name}}</a>
+          About
         </h1>
-        <label class="author-bio">{{{author.bio}}}</label>
         {{#author.twitter}}
           <div class="author-twitter">
             <a href="https://twitter.com/{{author.twitter}}" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false"></a>
@@ -33,52 +31,19 @@
 
     <!-- Index -->
     <main class="main index">
-      <ol class="index-season-list">
-        {{#seasons}}
-        <li>
-          <label class="index-season-name">{{name}}</label>
-          <ol class="index-article-list">
-            {{#articles}}
-            <li>
-              <article class="index-article">
-                <h2 class="index-article-title">
-                  <a class="index-article-link" href="/{{slug}}">{{{title}}}</a>
-                </h2>
-                <p class="index-article-excerpt">{{excerpt}}</p>
-              </article>
-            </li>
-            {{/articles}}
-          </ol>
-        </li>
-        {{/seasons}}
-      </ol>
+      About Content goes here
     </main>
 
     <!-- Navigation -->
     <nav class="nav">
       <div class="nav-mark">
         <img class="nav-icon" src="/icon.svg" />
+        <div class="author-bio"><a href="/">back home</a></div>
       </div>
     </nav>
 
     <!-- Footer -->
     <footer class="footer">
-      <div class="author">
-        <img class="author-gravatar" src="{{author.gravatar}}" />
-        <h1 class="author-name">
-          <a class="author-link" href="/">{{author.name}}</a>
-        </h1>
-        <label class="author-bio">{{{author.bio}}}
-          <div><a href="/about.html">About</a></div>
-        </label>
-        {{#author.twitter}}
-          <div class="author-twitter">
-            <a href="https://twitter.com/{{author.twitter}}" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false"></a>
-            <div class="author-twitter-mask-color"></div>
-            <div class="author-twitter-mask-lighten"></div>
-          </div>
-        {{/author.twitter}}
-      </div>
     </footer>
 
     <script src="/index.js"></script>
