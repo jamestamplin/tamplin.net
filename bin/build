@@ -51,7 +51,7 @@ const {
  * @type {Function}
  */
 
-const toSeason = Season({ north: true, fall: true })
+const toSeason = Season({ north: true, fall: false })
 
 /**
  * Plugins.
@@ -132,6 +132,12 @@ const plugins = [
     name: 'index.html',
     contents: '',
     layout: 'index.html',
+  }),
+
+  add({
+    name: 'about.html',
+    contents: '',
+    layout: 'about.html',
   }),
 
   layouts({
