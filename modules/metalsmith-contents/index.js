@@ -29,12 +29,21 @@ function plugin(options = {}) {
       return t
     })
 
+    let next
+
     items.forEach((item) => {
       item = transItem(item)
       const path = createPath(item, col)
       const body = body_field ? item.properties[body_field.key] : ''
+      
+      if (next) {
+        item.next = next
+        next.previous = item
+      }
+
       files[path] = item
       files[path].contents = Buffer.from(body)
+      next = item
     })
   }
 

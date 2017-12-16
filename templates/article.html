@@ -20,13 +20,6 @@
           <a class="author-link" href="/">{{author.name}}</a>
         </h1>
         <label class="author-bio">{{{author.bio}}}</label>
-        {{#author.twitter}}
-          <div class="author-twitter">
-            <a href="https://twitter.com/{{author.twitter}}" class="twitter-follow-button" data-show-count="false" data-show-screen-name="false"></a>
-            <div class="author-twitter-mask-color"></div>
-            <div class="author-twitter-mask-lighten"></div>
-          </div>
-        {{/author.twitter}}
       </div>
     </header>
 
@@ -47,24 +40,24 @@
     <nav class="nav">
       <div class="nav-previous">
         <label class="nav-label">Previous</label>
-        {{#next}}
-          <a class="nav-link" href="/{{next.slug}}">{{{next.name}}}</a>
-        {{/next}}
-        {{^next}}
+        {{#previous}}
+          <a class="nav-link" href="/{{slug}}">{{{title}}}</a>
+        {{/previous}}
+        {{^previous}}
         <em>You&rsquo;re at the beginning!</em>
-        {{/next}}
+        {{/previous}}
       </div>
       <div class="nav-mark">
         <img class="nav-icon" src="/icon.svg" />
       </div>
       <div class="nav-next">
         <label class="nav-label">Next</label>
-        {{#previous}}
-          <a class="nav-link" href="/{{previous.slug}}">{{{previous.name}}}</a>
-        {{/previous}}
-        {{^previous}}
+        {{#next}}
+          <a class="nav-link" href="/{{slug}}">{{{title}}}</a>
+        {{/next}}
+        {{^next}}
           <em>Soon! Follow with <a href="/atom.xml">RSS</a>{{#author.twitter}} or <a href="https://twitter.com/{{author.twitter}}">Twitter</a>{{/author.twitter}}&hellip;</em>
-        {{/previous}}
+        {{/next}}
       </div>
     </nav>
 
