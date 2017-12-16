@@ -93,7 +93,7 @@ const plugins = [
     articles: {
       pattern: '*',
       reverse: true,
-      refer: false
+      refer: false,
       sortBy: (a, b) => {
         a = new Date(a.published_at)
         b = new Date(b.published_at)
