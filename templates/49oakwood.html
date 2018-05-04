@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+  <head>
+    <title>49 Oakwood</title>
+    <link rel="stylesheet" href="/index.css">
+  </head>
+  <body>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="author">
+        <a href="/"><img class="author-gravatar" src="{{author.gravatar}}" /></a>
+        <h1 class="author-name">
+          About
+        </h1>
+      </div>
+    </header>
+
+    <!-- Index -->
+    <div id="main">
+      <h2>Dolores Park Top-floor Flat</h2>
+      <a href="https://web.archive.org/web/20160419053840/https://flic.kr/s/aHskydwhRJ" style="border: 0;">
+        <img src="/web/20160419053840im_/http://aaronslist.org/oakwood.jpg" style="border: 1px solid #000; width: 100%;"/>
+      </a>
+      <a href="https://web.archive.org/web/20160419053840/https://flic.kr/s/aHskydwhRJ">More Pictures</a>
+      <h3>$4700/month</h3>
+      <h4>Unfurnished or semi-furnished</h4>
+      <p><b>Apartment Features:</b></p>
+      <ul>
+        <li>Address: <a href="https://www.google.com/maps/place/49+Oakwood+St,+San+Francisco,+CA+94110">49
+        Oakwood Street</a></li>
+        <li>2BR, 1BA, 1100 sq. ft.</li>
+        <li>Entire top floor of building with private stairway and
+        entrance.</li>
+        <li>Unique modular layout: 4 main rooms: (1) master bedroom, (2) bedroom
+          or office, (3) living room, and (4) kitchen/dining room. Each pair of
+          rooms has pocket doors that open to create open layout, or close for
+          privacy. Living room can convert to private 3rd bedroom for
+          guests.</li>
+        <li>1 fully-equipped bathroom, high-pressure rain shower, full bath
+        tub.</li>
+        <li>Chef's kitchen: new gas range stove, new dishwasher, garbage
+          disposal, large new fridge, granite countertops.</li>
+        <li>Stained glass window by a local glass artist in the kitchen.</li>
+        <li>High ceilings.</li>
+        <li>Filled with natural light from all 4 directions.</li>
+        <li>Quiet 1-way side street, 1 block from Dolores Park.</li>
+        <li>Tandem 2-car parking spot (shared with friendly neighbor).</li>
+        <li>Washer/dryer in garage.</li>
+        <li>Shared outdoor patio and BBQ.</li>
+        <li>Dogs/cats OK</li>
+      </ul>
+      <p><b>Tech features:</b></p>
+      <ul>
+        <li>August Smart Lock: unlock the door with your phone and authorize
+          friends via an app. (Normal key works too.)</li>
+        <li>Modern video intercom for the front door.</li>
+        <li>Nest thermostat: control temperature from your phone.</li>
+        <li>CAT5 ethernet drops in every room.</li>
+        <li>Internet options: Monkeybrains antennae already installed on roof;
+          or comcast business wiring already set up.</li>
+        <li>Living room has flatscreen TV and 5.1 hi-fi sound system built into
+          the walls.</li>
+      </ul>
+      <p>This is a unique, peaceful, cheery space. I love living here but am
+        moving to the east coast. I am not the landlord, just helping him find
+        someone to take over my lease. Someone looking for a semi-furnished
+        place would be ideal. The move-in date and furniture situation are
+        flexible.</p>
+      <p><b>Contact:</b> <tt>james@tamplin.net</tt></p>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+    </footer>
+    <script src="/index.js"></script>
+
+    {{#segment}}
+      <script>
+        !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","group","track","ready","alias","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="3.0.1";
+          analytics.load('{{segment}}');
+          analytics.page('Home');
+        }}();
+      </script>
+    {{/segment}}
+  </body>
+</html>
