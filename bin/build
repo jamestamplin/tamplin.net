@@ -141,6 +141,12 @@ const plugins = [
     layout: 'about.html',
   }),
 
+  add({
+    name: '49oakwood.html',
+    contents: '',
+    layout: '49oakwood.html',
+  }),
+
   layouts({
     pattern: '*',
     directory: 'templates',
